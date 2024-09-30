@@ -7,19 +7,21 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Cocktail: <%= cocktail.strDrink %></h1>
+    <h1><%= cocktail.strDrink %></h1>
     <img src="<%= cocktail.strDrinkThumb %>" alt="<%= cocktail.strDrink %>" />
-    <h2>Ingredients:</h2>
-    <ul>
-        <% for (let i = 1; i <= 15; i++) { %>
-            <% if (cocktail[`strIngredient${i}`]) { %>
-                <li>
-                    <%= cocktail[`strMeasure${i}`] ? cocktail[`strMeasure${i}`] : '' %> 
-                    <%= cocktail[`strIngredient${i}`] %>
-                </li>
+    <div class="ingredient-box">
+        <h2>Ingredients:</h2>
+        <ul>
+            <% for (let i = 1; i <= 15; i++) { %>
+                <% if (cocktail[`strIngredient${i}`]) { %>
+                    <li>
+                        <%= cocktail[`strMeasure${i}`] ? cocktail[`strMeasure${i}`] : '' %> 
+                        <%= cocktail[`strIngredient${i}`] %>
+                    </li>
+                <% } %>
             <% } %>
-        <% } %>
-    </ul>
+        </ul>
+    </div>
     <h2>Instructions:</h2>
     <p><%= cocktail.strInstructions %></p>
     <a href="/">Get Another Cocktail</a>

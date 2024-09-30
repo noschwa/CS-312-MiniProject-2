@@ -7,16 +7,19 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Welcome to Cocktail Finder!</h1>
-    <p>Enter a drink name to search or click the button below to get a random cocktail recipe!</p>
+    <h1>Welcome to The Cocktail Finder!</h1>
+    <p>Enter a drink name to search</p>
 
     <form action="/cocktail/search" method="POST">
         <input type="text" name="drinkName" placeholder="Enter drink name" required>
+        <br>
         <button type="submit">Search Cocktail</button>
     </form>
-
+    <h2>OR...</h2>
     <form action="/cocktail/random" method="POST">
+        <p>I'm feeling lucky...</p>
       <button type="submit">Get Random Cocktail</button>
   </form>
+  <img src="https://shorturl.at/ikXWe" alt="Cocktail Gif">
 </body>
 </html>

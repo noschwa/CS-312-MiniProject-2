@@ -1,12 +1,32 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #2b032183;
   text-align: center;
-  padding-top: 50px;
+  padding-top: 1px;
 }
 
 h1 {
-  color: #333;
+  color: #000000;
+}
+
+ul {
+  list-style-type: none;
+  list-style-position: inside;
+}
+
+.ingredient-box {
+  text-align: center; 
+  margin: 0 auto; 
+}
+
+.ingredient-box h2 {
+  text-align: center; 
+}
+
+.ingredient-box ul {
+  list-style-type: none; 
+  padding: 0; 
+  text-align: center;
 }
 
 form button {
@@ -16,6 +36,7 @@ form button {
   border: none;
   font-size: 16px;
   cursor: pointer;
+  margin: 10px;
 }
 
 form button:hover {
@@ -24,6 +45,11 @@ form button:hover {
 
 p {
   font-size: 18px;
-  color: #777;
+  color: #000000;
   text-align: center;
+}
+
+img {
+  height: 250px;
+  width: auto;
 }
