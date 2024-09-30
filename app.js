@@ -1,53 +1,59 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const axios = require('axios');
+const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Set up EJS as the view engine
+// Set up EJS for templating
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-// Middleware to serve static files from the "public" folder
-app.use(express.static('public'));
+// Serve static files (CSS, images)
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware to parse the body of POST requests (to extract form data)
+// Use bodyParser to parse form data
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Home route (GET)
+// Route for the homepage
 app.get('/', (req, res) => {
-  res.render('index');  // Renders the homepage with the button to get a quote
+    res.render('index'); // Render the index.ejs
 });
 
-app.post('/quote', async (req, res) => {
-  try {
-    // Make the API request to the correct Stoic Quote API endpoint
-    const response = await axios.get('https://stoic.tekloon.net/stoic-quote');
+// Route to fetch a random cocktail
+app.post('/cocktail/random', async (req, res) => {
+    try {
+        const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+        const cocktail = response.data.drinks[0]; // Get the first drink
 
-    // Log the response to confirm structure
-    console.log(response.data);
-
-    // Extract the quote and author from the response (which is in `response.data.data`)
-    const quote = response.data.data.quote;
-    const author = response.data.data.author;
-
-    // Render the quote page and pass the quote and author to the view
-    res.render('quote', { quote: quote, author: author });
-  } catch (error) {
-    // Log the error to the console for debugging
-    console.error(error);
-
-    // Handle API request error
-    res.render('error', { message: 'Failed to fetch the quote. Please try again later.' });
-  }
+        res.render('cocktail', { cocktail }); // Render cocktail.ejs with cocktail data
+    } catch (error) {
+        console.error('Error fetching random cocktail:', error);
+        res.status(500).render('error'); // Render error.ejs on error
+    }
 });
 
-// Error route (for invalid pages or errors)
-app.use((req, res) => {
-  res.status(404).render('error', { message: 'Page not found.' });
+// Route to search for a specific cocktail
+app.post('/cocktail/search', async (req, res) => {
+    const drinkName = req.body.drinkName;
+
+    try {
+        const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinkName}`);
+        const cocktail = response.data.drinks ? response.data.drinks[0] : null; // Get the first drink if exists
+
+        if (cocktail) {
+            res.render('cocktail', { cocktail }); // Render cocktail.ejs with cocktail data
+        } else {
+            res.render('error', { message: 'Cocktail not found!' }); // Render error.ejs if not found
+        }
+    } catch (error) {
+        console.error('Error fetching cocktail:', error);
+        res.status(500).render('error'); // Render error.ejs on error
+    }
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });

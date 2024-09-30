@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stoicism Quote Generator</title>
-  <link rel="stylesheet" href="/public/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktail Finder</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <h1>Stoicism Corner</h1>
-  <p>Have you ever wanted to get instant words of wisdom from the Stoics of Ancient Times?</p>
-  <p>Now is your chance!</p>
-  <p>Go ahead and click the statue below to have wisdom imparted upon you!</p>
-  <form action="/quote" method="POST">
-    <input type="image" src="/public/statue.png" alt="Submit" class="image-button">
+    <h1>Welcome to Cocktail Finder!</h1>
+    <p>Enter a drink name to search or click the button below to get a random cocktail recipe!</p>
+
+    <form action="/cocktail/search" method="POST">
+        <input type="text" name="drinkName" placeholder="Enter drink name" required>
+        <button type="submit">Search Cocktail</button>
+    </form>
+
+    <form action="/cocktail/random" method="POST">
+      <button type="submit">Get Random Cocktail</button>
   </form>
 </body>
 </html>
