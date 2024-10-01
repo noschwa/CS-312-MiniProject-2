@@ -4,17 +4,13 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
-// Set up EJS for templating
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-// Serve static files (CSS, images)
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Use bodyParser to parse form data
+// middleware stuff
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+
 
 // Route for the homepage
 app.get('/', (req, res) => {
